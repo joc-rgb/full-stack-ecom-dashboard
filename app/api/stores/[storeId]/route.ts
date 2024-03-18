@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 //update store name
-export const PUT = async (req: Request, {params}:{params:{storeId: string}}) => {
+export const PATCH = async (req: Request, {params}:{params:{storeId: string}}) => {
   try {
     const {userId} = auth();
     const {name} = await req.json();
