@@ -1,6 +1,8 @@
-import SettingsForm from '@/components/forms/settings-form';
+import SettingsForm from '@/app/(dashboard)/[storeId]/(routes)/settings/components/settings-form';
+import { Button } from '@/components/ui/button';
 import prismadb from '@/lib/prismadb';
 import { auth } from '@clerk/nextjs';
+import { Trash2Icon } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import React from 'react'
 interface SettingsProps{
@@ -26,9 +28,14 @@ const Settings:React.FC<SettingsProps> = async ({
     if(!store){
         redirect('/');
     }
+
   return (
-    <div>
-        <SettingsForm />
+    <div className='flex-col p-8'>
+        <div className="flex justify-between items-center">
+        
+        <SettingsForm initialData={store} />
+        
+        </div>
     </div>
   )
 }
