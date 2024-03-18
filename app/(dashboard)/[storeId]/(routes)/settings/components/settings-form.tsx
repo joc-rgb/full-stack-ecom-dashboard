@@ -10,6 +10,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../../../../../../components/ui/input'
 import { Button } from '../../../../../../components/ui/button'
 import { Trash2Icon } from 'lucide-react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 interface SettingsProps {
   initialData: Store
@@ -25,13 +28,30 @@ type SettingsFormValues = z.infer<typeof formSchema>
 
 const SettingsForm: React.FC<SettingsProps> = ({initialData}) => {
   const [isLoading, setLoading] = useState(false)
-
+  const router = useRouter()
   const onSubmit = async (values: SettingsFormValues) =>{
-    setLoading(true)
-    console.log("sublit")
+    try {
+      setLoading(true)
+      // send request to update store
+      const res = await axios.patch(`/api/stores/${initialData.id}`, values)
+      //redirect to store page
+      window.location.assign(`${res.data.id}`)
+      router.refresh()
+      toast.success("Store updated successfully.")
+    } catch (error) {
+      toast.error("Something went wrong.");
+      console.log(error)
+    }finally{
+      setLoading(false)
+    
+    }
+    
+
     console.log(values)
     setLoading(false)
   }
+
+  const onDelete = async () =>{}
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
