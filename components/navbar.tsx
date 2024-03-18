@@ -5,7 +5,7 @@ import StoreSwitcher from './store-switcher'
 import prismadb from '@/lib/prismadb'
 import { redirect } from 'next/navigation'
 
-const Navbar = async () => {
+const Navbar:React.FC<React.PropsWithChildren> = async ({children}) => {
   const {userId} = auth()
   if(!userId){
     redirect('/sign-in')
@@ -22,7 +22,8 @@ const Navbar = async () => {
         <StoreSwitcher items={stores}/>
         <MainNav className='space-y-6 w-full'/>
       </div>
-      <div className="flex px-2 h-16 w-full items-center border-b justify-around">
+      <div className='w-full'>
+      <div className="flex px-2 h-16 w-full items-center border-b justify-around  mb-2" >
         <div>
           SearchBar
         </div>
@@ -33,6 +34,8 @@ const Navbar = async () => {
         </div>
         <UserButton afterSignOutUrl='/'/>
         </div>
+      </div>
+      {children}
       </div>
     </div>
     
