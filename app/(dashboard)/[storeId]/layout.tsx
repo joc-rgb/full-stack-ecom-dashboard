@@ -22,7 +22,10 @@ export default async function DashboardLayout({ children, params}: {children: Re
 
     return (
         <>
-            <Navbar />
+            <Navbar>
+                {children}
+            </Navbar>
+            
         </>
     )
 }
