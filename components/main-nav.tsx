@@ -32,18 +32,6 @@ const MainNav = ({className, ...props}:React.HTMLAttributes<HTMLElement>) => {
             icon: <Blocks />
         },
         {
-            label: 'Customers',
-            href: `/${params.storeId}/customers`,
-            active: pathName === `/${params.storeId}/customers`,
-            icon: <Users />
-        },
-        {
-            label: 'Orders',
-            href: `/${params.storeId}/orders`,
-            active: pathName === `/${params.storeId}/orders`,
-            icon: <ArrowRightLeft />
-        },
-        {
             label: 'Settings',
             href: `/${params.storeId}/settings`,
             active: pathName === `/${params.storeId}/settings`,

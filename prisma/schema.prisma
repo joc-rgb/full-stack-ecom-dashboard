@@ -17,6 +17,43 @@ model Store {
   id String @id @default(uuid())
   name String
   userId String
+  billboards Billboard[]
+  categories Category[]
+  products Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Billboard {
+  id String @id @default(uuid())
+  name String
+  storeId String
+  store Store @relation(fields: [storeId], references: [id])
+  label String
+  imgUrl String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String
+  storeId String
+  store Store @relation(fields: [storeId], references: [id])
+  products Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id String @id @default(uuid())
+  name String
+  price Float
+  storeId String
+  store Store @relation(fields: [storeId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  imgUrl String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
