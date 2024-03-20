@@ -13,6 +13,7 @@ import { Trash2Icon } from 'lucide-react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import WarningModal from '@/components/modals/warning-modal'
 
 interface SettingsProps {
   initialData: Store
@@ -28,6 +29,7 @@ type SettingsFormValues = z.infer<typeof formSchema>
 
 const SettingsForm: React.FC<SettingsProps> = ({initialData}) => {
   const [isLoading, setLoading] = useState(false)
+  const [isOpen, setOpen] = useState(false)
   const router = useRouter()
   const onSubmit = async (values: SettingsFormValues) =>{
     try {
@@ -45,19 +47,30 @@ const SettingsForm: React.FC<SettingsProps> = ({initialData}) => {
       setLoading(false)
     
     }
-    
-
-    console.log(values)
-    setLoading(false)
   }
 
-  const onDelete = async () =>{}
+  const onDelete = async () =>{
+    try {
+      setLoading(true)
+      await axios.delete(`/api/stores/${initialData.id}`) 
+      router.refresh();
+      router.push('/');
+      toast.success("Store deleted successfully.")
+    } catch (error) {
+      toast.error("Something went wrong.");
+    } finally{
+      setLoading(false)
+      setOpen(false)
+    }
+  }
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues:initialData
   })
   return (
+    <>
+    <WarningModal isLoading={isLoading} isOpen={isOpen} onClose={()=>setOpen(false)} onConfirm={onDelete} />
     <div className='w-full'>
       <div className="flex justify-between w-full">
       <Heading title='Store Settings' description='Edit your store settings'/>
@@ -92,6 +105,7 @@ const SettingsForm: React.FC<SettingsProps> = ({initialData}) => {
          </Form>
       </div>
     </div>
+    </>
   )
 }
 
