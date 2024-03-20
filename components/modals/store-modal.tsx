@@ -35,7 +35,8 @@ export const StoreModal = () => {
     try {
       setLoading(true);
       const res = await axios.post('/api/stores', values)
-      window.location.assign(`${res.data.id}`)
+      //redirect to store page if the current page is the dashboard of other store
+      window.location.assign(`/${res.data.id}`)
       toast.success("Store created successfully.")
       console.log(res.data)
     } catch (error) {

@@ -5,11 +5,13 @@ import { auth } from '@clerk/nextjs';
 import { Trash2Icon } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import React from 'react'
+
 interface SettingsProps{
     params:{
         storeId: string;
     }
 }
+
 const Settings:React.FC<SettingsProps> = async ({
     params
 }) => {

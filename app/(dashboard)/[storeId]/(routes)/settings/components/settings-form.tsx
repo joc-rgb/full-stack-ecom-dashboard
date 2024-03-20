@@ -78,6 +78,7 @@ const SettingsForm: React.FC<SettingsProps> = ({initialData}) => {
           disabled={isLoading}
           variant="destructive"
           size="sm"
+          onClick={()=>setOpen(true)}
         >
           Delete Store
           <Trash2Icon className="h-4 w-4 ml-2" />
