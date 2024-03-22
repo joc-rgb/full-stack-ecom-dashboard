@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
-import { ArrowRightLeft, Blocks, HomeIcon, PackageSearch, Settings, Users } from 'lucide-react';
+import {  Blocks, HomeIcon, Images, PackageSearch, Settings} from 'lucide-react';
 import React from 'react'
 
 const MainNav = ({className, ...props}:React.HTMLAttributes<HTMLElement>) => {
@@ -18,6 +18,12 @@ const MainNav = ({className, ...props}:React.HTMLAttributes<HTMLElement>) => {
             href: `/${params.storeId}/overview`,
             active: pathName === `/${params.storeId}`,
             icon: <HomeIcon />
+        },
+        {
+            label: 'Billboards',
+            href: `/${params.storeId}/billboards`,
+            active: pathName === `/${params.storeId}/billboards`,
+            icon: <Images />
         },
         {
             label: 'Products',
